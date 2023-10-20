@@ -21,5 +21,7 @@ int main() {
     std::cerr << "[INFO] " << "Elapsed time for "
         << n << " pushes front :"
         << elapsed.count() << std::endl;
+
+    std::cout << "Fim algoritmo" << endl;
     return 0;
 }
