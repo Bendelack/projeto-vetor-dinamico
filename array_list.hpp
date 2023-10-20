@@ -6,7 +6,16 @@ class array_list {
     private:
         int* data;
         unsigned int size_, capacity_;
-        void increase_capacity() {}
+        void increase_capacity() {
+            int* new_data = new int[this->capacity_ * 2];
+            for (i = 0; i < this->size_; i++){
+                new_data[i] = this->data[i];
+            }
+            delete [] this->data;
+            this->data = new_data;
+            this->capacity_ = this->capacity_ * 2;
+        }
+
     public:
         array_list() {
             data = new int[8];
@@ -48,11 +57,11 @@ class array_list {
         void push_front(int value) {
             if ( this->size_ == this->capacity_ )
                 increase_capacity();
-            array_list new_data;// = new array_list();
-            new_data.insert_at(0, value);
+            array_list new_data;// = new int[this-capacity_];
+            new_data.push_back(value);
             int j = 0;
             for (int i = 1; i < this->size_; i++){
-                new_data.insert_at(i, data[j]);
+                new_data.push_back(data[j]);
                 j++;
             }
         }
@@ -68,3 +77,5 @@ class array_list {
 
 
 #endif // __ARRAY_LIST_IFRN__
+
+/*criar métodos que simplifique o uso*/
