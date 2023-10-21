@@ -8,7 +8,7 @@ class array_list {
         unsigned int size_, capacity_;
         void increase_capacity() {
             int* new_data = new int[this->capacity_ * 2];
-            for (int i = 0; i < this->size_; i++){
+            for (unsigned i = 0; i < this->size_; i++){
                 new_data[i] = this->data[i];
             }
             delete [] this->data;
@@ -35,51 +35,48 @@ class array_list {
         bool insert_at(unsigned int index, int value) {
             if ( index > this->size_ )
                 return false;
-            else if ( index == this->size_ ){
-                if ( this->size_ == this->capacity_ )
-                    increase_capacity();
-                this->data[this->size_++];
+            if ( index == this->size_ ){
+                this->push_back(value);
                 return true;
-            } else {
-                if ( this->size_ == this->capacity_ )
-                    increase_capacity();
-                for ( int i = this->size_; i > index; i-- )
-                    this->data[i] = this->data[i-1];
-                this->data[index] = value;
-
-                this->size_++;
-                return true;
-            }
+            } 
+            if ( this->size_ == this->capacity_ )
+                increase_capacity();
+            for ( unsigned int i = this->size_; i > index; i-- )
+                this->data[i] = this->data[i-1];
+            this->data[index] = value;
+            this->size_++;
+            return true;
         }
-        bool remove_at(unsigned int index) {
+        bool remove_at(unsigned int index) { //O(n), onde n é quantidade de elementos após o indice mencionado
             if (index >= this->size_)
                 return false; // Não removeu
-            for (int i = index + 1; i < this->size_; ++i) {
+            for (unsigned i = index + 1; i < this->size_; ++i) {
                 this->data[i - 1] = this->data[i];
             }
             this->size_--;
             return true; // Removeu
         }
-        int get_at(unsigned int index) {
-            // TODO: Check if index is valid
+
+        int get_at(unsigned index) {
             if ( index >= this->size_ )
                 return -1;
             return this->data[index];
         }
+
         void clear() {}
+
         void push_back(int value) {
             if (this->size_ == this->capacity_)
                 increase_capacity();
             this->data[size_++] = value;
         }
+
         void push_front(int value) { // O(n), onde n é a quantidade elementos do array antes da inserção
             if ( this->size_ == this->capacity_ )
                 increase_capacity();
-            for ( unsigned int i = this->size_; i > 0; i-- )// this->size_; i++ )
+            for ( unsigned int i = this->size_; i > 0; i-- )
                 this->data[i] = this->data[i-1];
             this->data[0] = value;
-            // for ( unsigned int i = 0; i < this->size_; i++ )
-            //     std::cout << "this->data[" << i << "]" << this->data[i] << std::endl;
             this->size_++;
         }
         bool pop_back() {
@@ -92,7 +89,7 @@ class array_list {
                 return false;
             if ( this->size_ == 1 )
                 /*code*/
-            for ( int i = 1; i < this->size_; i++ )
+            for ( unsigned i = 1; i < this->size_; i++ )
                 this->data[i-1] = this->data[i];
             this->size_--;
             return true;
@@ -105,21 +102,21 @@ class array_list {
         }
         bool remove(int value) {}
         int find(int value) { // O(n), onde n é a quantidade de elementos do array.s
-            for ( int i = 0; i < this->size_; i++ )
+            for ( unsigned i = 0; i < this->size_; i++ )
                 if ( this->data[i] == value )
                     return i;
             return -1;
         }
         int count(int value) { // O(n), onde n é a quantidade de elementos do array.s
             int x = 0;
-            for ( int i = 0; i < this->size_; i++ )
+            for ( unsigned i = 0; i < this->size_; i++ )
                 if ( this->data[i] == value )
                     x++;
             return x;
         }
         int sum() { // O(n), onde n é a quantidade de elementos do array.s
             int soma = 0;
-            for ( int i = 0; i < this->size_; i++ )
+            for ( unsigned i = 0; i < this->size_; i++ )
                 soma += this->data[i];
             return soma;
         }

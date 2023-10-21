@@ -2,6 +2,7 @@
 #include <chrono>
 #include "array_list.hpp"
 
+
 int main() {
     unsigned int n;
     std::cin >> n;
@@ -15,14 +16,27 @@ int main() {
     unsigned int m;
     std::cin >> m;
     unsigned int removed = 0, not_removed = 0;
-    for (int i = 0; i < m; ++i) {
+
+    std::cout << std::endl << "before remove_at" << std::endl;
+
+    for (unsigned int i = 0; i < m; ++i) {
         int x;
         std::cin >> x;
+        std::cout << x << " -> ";
+        for ( unsigned i = 0; i < l1.size(); i++ )
+            std::cout << "[" << i << "]=" << l1.get_at(i) << " ";
+        std::cout << "}" << std::endl;
         if (l1.remove_at(x))
             removed++;
         else
             not_removed++;
     }
+
+    std::cout << std::endl << "after remove_at" << std::endl;
+    for ( unsigned i = 0; i < l1.size(); i++ )
+        std::cout << "[" << i << "]=" << l1.get_at(i) << " ";
+    std::cout << "}" << std::endl;
+
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = end - beg;
     std::cerr << "[DEBUG] Tried to remove " << m << " element(s)\n";

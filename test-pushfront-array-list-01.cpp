@@ -22,11 +22,12 @@ int main() {
         << n << " pushes front :"
         << elapsed.count() << std::endl;
 
-    for (unsigned int i = 0; i < n; ++i)
-        std::cout << i << " -> " << l1.get_at(i) << std::endl;
+    // for (unsigned int i = 0; i < l1.size(); ++i)
+        // std::cout << i << " -> " << l1.get_at(i) << std::endl;
 
-    // std::cout << l1.get_at(2) << std::endl;
-
+    // l1.insert_at(6, 13);
+    std::cout << std::endl;
+    
     std::cout << std::endl;
 
     std::cout << "Fim algoritmo" << std::endl;
