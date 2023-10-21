@@ -8,7 +8,7 @@ class array_list {
         unsigned int size_, capacity_;
         void increase_capacity() {
             int* new_data = new int[this->capacity_ * 2];
-            for (i = 0; i < this->size_; i++){
+            for (int i = 0; i < this->size_; i++){
                 new_data[i] = this->data[i];
             }
             delete [] this->data;
@@ -33,7 +33,23 @@ class array_list {
         }
         double percent_occupied() {}
         bool insert_at(unsigned int index, int value) {
-            
+            if ( index > this->size_ )
+                return false;
+            else if ( index == this->size_ ){
+                if ( this->size_ == this->capacity_ )
+                    increase_capacity();
+                this->data[this->size_++];
+                return true;
+            } else {
+                if ( this->size_ == this->capacity_ )
+                    increase_capacity();
+                for ( int i = this->size_; i > index; i-- )
+                    this->data[i] = this->data[i-1];
+                this->data[index] = value;
+
+                this->size_++;
+                return true;
+            }
         }
         bool remove_at(unsigned int index) {
             if (index >= this->size_)
@@ -46,6 +62,8 @@ class array_list {
         }
         int get_at(unsigned int index) {
             // TODO: Check if index is valid
+            if ( index >= this->size_ )
+                return -1;
             return this->data[index];
         }
         void clear() {}
@@ -57,22 +75,57 @@ class array_list {
         void push_front(int value) {
             if ( this->size_ == this->capacity_ )
                 increase_capacity();
-            array_list new_data;// = new int[this-capacity_];
-            new_data.push_back(value);
+            int* new_data = new int[this->capacity_];
+            new_data[0] = value;
             int j = 0;
             for (int i = 1; i < this->size_; i++){
-                new_data.push_back(data[j]);
+                new_data[i] = data[j];
                 j++;
             }
+            delete [] this->data;
+            this->data = new_data;
         }
-        bool pop_back() {}
-        bool pop_front() {}
-        int front(){}
-        int back(){}
+        bool pop_back() {
+            if ( this->size_ == 0 ) 
+                return false;
+            
+        }
+        bool pop_front() {
+            if ( this->size_ == 0 )
+                return false;
+            if ( this->size_ == 1 )
+                /*code*/
+            for ( int i = 1; i < this->size_; i++ )
+                this->data[i-1] = this->data[i];
+            this->size_--;
+            return true;
+        }
+        int front(){ // O(1)
+            return this->data[0];
+        }
+        int back(){ // O(1)
+            return this->data[this->size_ - 1];
+        }
         bool remove(int value) {}
-        int find(int value) {}
-        int count(int value) {}
-        int sum() {}
+        int find(int value) { // O(n), onde n é a quantidade de elementos do array.s
+            for ( int i = 0; i < this->size_; i++ )
+                if ( this->data[i] == value )
+                    return i;
+            return -1;
+        }
+        int count(int value) { // O(n), onde n é a quantidade de elementos do array.s
+            int x = 0;
+            for ( int i = 0; i < this->size_; i++ )
+                if ( this->data[i] == value )
+                    x++;
+            return x;
+        }
+        int sum() { // O(n), onde n é a quantidade de elementos do array.s
+            int soma = 0;
+            for ( int i = 0; i < this->size_; i++ )
+                soma += this->data[i];
+            return soma;
+        }
 };
 
 
