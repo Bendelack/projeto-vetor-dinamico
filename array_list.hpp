@@ -72,18 +72,15 @@ class array_list {
                 increase_capacity();
             this->data[size_++] = value;
         }
-        void push_front(int value) {
+        void push_front(int value) { // O(n), onde n é a quantidade elementos do array antes da inserção
             if ( this->size_ == this->capacity_ )
                 increase_capacity();
-            int* new_data = new int[this->capacity_];
-            new_data[0] = value;
-            int j = 0;
-            for (int i = 1; i < this->size_; i++){
-                new_data[i] = data[j];
-                j++;
-            }
-            delete [] this->data;
-            this->data = new_data;
+            for ( unsigned int i = this->size_; i > 0; i-- )// this->size_; i++ )
+                this->data[i] = this->data[i-1];
+            this->data[0] = value;
+            // for ( unsigned int i = 0; i < this->size_; i++ )
+            //     std::cout << "this->data[" << i << "]" << this->data[i] << std::endl;
+            this->size_++;
         }
         bool pop_back() {
             if ( this->size_ == 0 ) 
