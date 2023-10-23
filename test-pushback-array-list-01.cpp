@@ -10,7 +10,7 @@ int main() {
     for (unsigned int i = 0; i < n; ++i) {
         int x;
         std::cin >> x;
-        l1.push_front(x);
+        l1.push_back(x);
     }
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = end - beg;
