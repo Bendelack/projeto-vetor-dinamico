@@ -27,13 +27,18 @@ class array_list {
             delete[] data;
         }
 
-        unsigned int size() {
+        unsigned int size() { //O(1)
             return this->size_;
         }
-        unsigned int capacity() {
+        unsigned int capacity() { // O(1)
             return this->capacity_;
         }
-        double percent_occupied() {}
+        double percent_occupied() { // O(1)
+            // std::cout << " " << this->size_ << " " << this->capacity_ << std::endl;
+            
+            // double percent = this->size_/this->capacity_;
+            return this->size_/this->capacity_;
+        }
         bool insert_at(unsigned int index, int value) { //
             if ( index > this->size_ )
                 return false;
@@ -69,15 +74,18 @@ class array_list {
             return this->data[index];
         }
 
-        void clear() {
+        void clear() { // O(1)
             delete [] this->data;
-            data = new int[8];
+            this->data = new int[8];
+            this->size_ = 0;
+            this->capacity_ = 8;
         }
 
         void push_back(int value) { // O(1)
             if (this->size_ == this->capacity_)
                 increase_capacity();
             this->data[size_++] = value;
+            this->size_++;
         }
 
         void push_front(int value) { // O(n), onde n é a quantidade elementos do array antes da inserção
@@ -89,10 +97,11 @@ class array_list {
             this->size_++;
         }
 
-        bool pop_back() {
+        bool pop_back() { // O(1)
             if ( this->size_ == 0 ) 
                 return false;
             this->size_--;
+            return true;
         }
 
         bool pop_front() { // O(n), onde n é a quantidade de elementos do array
