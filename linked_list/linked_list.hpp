@@ -82,8 +82,27 @@ public:
         return current->value;
         
     }
-    void clear() {}
-    void push_back(int value) {}
+    void clear() {
+        // int_node* current = this->head;
+        // while (current != this->tail){
+        // {
+        //     delete current;
+        //     currer
+        // }
+        
+    }
+    void push_back(int value) {
+        int_node* new_node = new int_node;
+        new_node->value = value;
+        new_node->next = nullptr;
+        new_node->prev = this->tail;
+        // this->tail = new_node
+        if ( this->head == nullptr )
+            this->head = new_node;
+        this->tail = new_node;
+        this->size_++;
+    }
+
     void push_front(int value) {
         int_node* new_node = new int_node;
         new_node->value = value;
@@ -96,7 +115,15 @@ public:
         this->head = new_node;
         this->size_++;
     }
-    bool pop_back() {}
+    bool pop_back() {
+        if ( this->size_ == 0 )
+            return false;
+        int_node* anterior = this->tail->prev;
+        anterior->next = nullptr;
+        delete this->tail;
+        this->tail = anterior;
+        return true;
+    }
     bool pop_front() {}
 
     int front() { // O(1)
