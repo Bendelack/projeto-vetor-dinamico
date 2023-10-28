@@ -24,25 +24,28 @@ public:
             delete to_remove;
         }
     }
-    unsigned int size() { // O(n), onde n é a quantidade de elementos.
+    unsigned int size() { // O(1)
         return this->size_;
     }
-    unsigned int capacitty() {
+
+    unsigned int capacitty() { // O(1)
         return this->size_;
     }
-    double percent_occupied() {
+
+    double percent_occupied() { // O(1)
         return 1.0;
     }
-    bool insert_at(unsigned int index, int value) {
+
+    bool insert_at(unsigned int index, int value) { // O(n), onde n é o valor de index.
         if ( index > this->size_ )
             return false;
 
-        if ( index == 0 ){
+        if ( index == 0 ) {
             this->push_front(value);
             return true;
         }
 
-        if ( index == this->size_ ){
+        if ( index == this->size_ ) {
             this->push_back(value);
             return true;
         }
@@ -51,19 +54,22 @@ public:
 
         int_node* current = this->head;
 
-        for ( unsigned int i = 0; i < index; i++ )
+        for ( unsigned int i = 0; i < index; i++ ) {
             current = current->next;
+        }
 
         new_node->value = value;
         new_node->next = current;
         new_node->prev = current->prev;
-        current->prev = new_node;
+        new_node->next->prev = new_node;
+        new_node->prev->next = new_node;
+
         this->size_++;
         return true;
 
     }
 
-    bool remove_at(unsigned int index) {
+    bool remove_at(unsigned int index) {  // O(n), onde n é a quantidade de elementos
         if (index >= this->size_)
             return false; // Não removeu
         if ( index == 0 )
@@ -80,7 +86,7 @@ public:
         return true; // Removeu
     }
 
-    int get_at(unsigned int index) {
+    int get_at(unsigned int index) { // O(n), onde n é a quantidade de elementos
         if (index >= this->size_)
             return -1;
         int_node* current = this->head;
@@ -91,8 +97,8 @@ public:
         return current->value;
         
     }
-    
-    void clear() {
+
+    void clear() { // O(n), onde n é a quantidade de elementos
 
         int_node* current = this->head;
         while (current != nullptr) {
@@ -106,12 +112,13 @@ public:
         this->tail = 0;
         
     }
-    void push_back(int value) {
+    
+    void push_back(int value) { // O(1)
         int_node* new_node = new int_node;
         new_node->value = value;
         new_node->next = nullptr;
         new_node->prev = this->tail;
-        // this->tail = new_node
+
         if ( this->head == nullptr )
             this->head = new_node;
         else
@@ -120,7 +127,7 @@ public:
         this->size_++;
     }
 
-    void push_front(int value) {
+    void push_front(int value) { // O(1)
         int_node* new_node = new int_node;
         new_node->value = value;
         new_node->next = this->head;
@@ -133,7 +140,7 @@ public:
         this->size_++;
     }
     
-    bool pop_back() {
+    bool pop_back() { // O(1)
         if ( this->size_ == 0 )
             return false;
         int_node* to_remove = this->tail;
@@ -144,7 +151,8 @@ public:
         this->size_--;
         return true;
     }
-    bool pop_front() {
+
+    bool pop_front() { // O(1)
         if ( this->size_ == 0 )
             return false;
 
@@ -169,9 +177,30 @@ public:
         return -1;
     }
 
-    bool remove(int value) {}
+    bool remove(int value) { // O(n), onde n é a quantidade de elementos
+        if ( this->size_ == 0 )
+            return false;
+        if ( this->head->value == value )
+            return this->pop_front();
+        if ( this->tail->value == value )
+            return this->pop_back();
 
-    int find(int value) {
+        int_node* to_remove = this->head;
+        while ( to_remove->value != value && to_remove->next != nullptr )
+            to_remove = to_remove->next;
+
+        if ( to_remove->value != value )
+            return false;
+
+        to_remove->prev->next = to_remove->next;
+        to_remove->next->prev = to_remove->prev;
+
+        delete to_remove;
+        this->size_--;
+        return true;
+    }
+
+    int find(int value) { // O(n), onde n é a quantidade de elementos
         int_node* current = this->head;
 
         for ( unsigned int i = 0; i < this->size_; i++ ){
@@ -183,7 +212,7 @@ public:
         return -1;
     }
 
-    int count(int value) {
+    int count(int value) { // O(n), onde n é a quantidade de elementos
         int_node* current = this->head;
         int c = 0;
         while ( current != nullptr ){

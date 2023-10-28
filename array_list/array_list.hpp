@@ -6,7 +6,7 @@ class array_list {
     private:
         int* data;
         unsigned int size_, capacity_;
-        void increase_capacity() {
+        void increase_capacity() { // O(n), onde n é a quantidade de elementos no array
             int* new_data = new int[this->capacity_ * 2];
             for (unsigned i = 0; i < this->size_; i++){
                 new_data[i] = this->data[i];
@@ -30,16 +30,16 @@ class array_list {
         unsigned int size() { //O(1)
             return this->size_;
         }
+
         unsigned int capacity() { // O(1)
             return this->capacity_;
         }
+
         double percent_occupied() { // O(1)
-            // std::cout << " " << this->size_ << " " << this->capacity_ << std::endl;
-            
-            // double percent = this->size_/this->capacity_;
-            return this->size_/this->capacity_;
+            return static_cast<double>(this->size_)/this->capacity_;
         }
-        bool insert_at(unsigned int index, int value) { //
+
+        bool insert_at(unsigned int index, int value) { // O(n), onde n é a quantidade de elementos no array
             if ( index > this->size_ )
                 return false;
 
@@ -58,14 +58,14 @@ class array_list {
             return true;
         }
 
-        bool remove_at(unsigned int index) { //O(n), onde n é quantidade de elementos após o indice mencionado
+        bool remove_at(unsigned int index) { // // O(n), onde n é a quantidade de elementos no array
             if (index >= this->size_)
-                return false; // Não removeu
+                return false;
             for (unsigned i = index + 1; i < this->size_; ++i) {
                 this->data[i - 1] = this->data[i];
             }
             this->size_--;
-            return true; // Removeu
+            return true;
         }
 
         int get_at(unsigned index) { // O(1)
@@ -126,7 +126,7 @@ class array_list {
             return this->data[this->size_ - 1];
         }
 
-        bool remove(int value) { // O(n), onde n é o indice do valor fornecido
+        bool remove(int value) { // O(n), onde n é a quantidade de elementos no array
             for ( unsigned i = 0; i < this->size_; i++ )
                 if ( this->data[i] == value )
                     return this->remove_at(i);
@@ -148,7 +148,7 @@ class array_list {
             return x;
         }
 
-        int sum() { // O(n), onde n é a quantidade de elementos do array.s
+        int sum() { // O(n), onde n é a quantidade de elementos do array
             int soma = 0;
             for ( unsigned i = 0; i < this->size_; i++ )
                 soma += this->data[i];

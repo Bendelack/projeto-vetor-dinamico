@@ -22,7 +22,7 @@ int main() {
         << n << " pushes front :"
         << elapsed.count() << std::endl;
 
-    // std::cout << "{ ";
+    std::cout << l1.percent_occupied() << std::endl;
     // for (unsigned int i = 0; i < l1.size(); ++i)
     //     std::cout << i << " -> " << l1.get_at(i) << " ";
     // std::cout << "}";
