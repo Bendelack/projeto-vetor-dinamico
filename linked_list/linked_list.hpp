@@ -27,15 +27,22 @@ public:
     unsigned int size() { // O(n), onde n é a quantidade de elementos.
         return this->size_;
     }
-    unsigned int capacitty() {}
-    double percent_occupied() {}
+    unsigned int capacitty() {
+        return this->size_;
+    }
+    double percent_occupied() {
+        return 1.0;
+    }
     bool insert_at(unsigned int index, int value) {
+        if ( index > this->size_ )
+            return false;
+
         if ( index == 0 ){
             this->push_front(value);
             return true;
         }
 
-        if ( index >= this->size_ ){
+        if ( index == this->size_ ){
             this->push_back(value);
             return true;
         }
@@ -59,6 +66,8 @@ public:
     bool remove_at(unsigned int index) {
         if (index >= this->size_)
             return false; // Não removeu
+        if ( index == 0 )
+            return pop_front();
         int_node* to_remove = this->head;
         for (unsigned int i = 0; i < index; ++i)
             to_remove = to_remove->next;
@@ -82,13 +91,19 @@ public:
         return current->value;
         
     }
+    
     void clear() {
-        // int_node* current = this->head;
-        // while (current != this->tail){
-        // {
-        //     delete current;
-        //     currer
-        // }
+
+        int_node* current = this->head;
+        while (current != nullptr) {
+            int_node* to_remove = current;
+            current = current->next;
+            delete to_remove;
+        }
+
+        this->size_ = 0;
+        this->head = 0;
+        this->tail = 0;
         
     }
     void push_back(int value) {
@@ -99,6 +114,8 @@ public:
         // this->tail = new_node
         if ( this->head == nullptr )
             this->head = new_node;
+        else
+            this->tail->next = new_node;
         this->tail = new_node;
         this->size_++;
     }
@@ -115,16 +132,30 @@ public:
         this->head = new_node;
         this->size_++;
     }
+    
     bool pop_back() {
         if ( this->size_ == 0 )
             return false;
-        int_node* anterior = this->tail->prev;
-        anterior->next = nullptr;
-        delete this->tail;
-        this->tail = anterior;
+        int_node* to_remove = this->tail;
+        if ( this->tail->prev != nullptr )
+            this->tail->prev->next = nullptr;
+        this->tail = this->tail->prev;
+        delete to_remove;
+        this->size_--;
         return true;
     }
-    bool pop_front() {}
+    bool pop_front() {
+        if ( this->size_ == 0 )
+            return false;
+
+        int_node* to_remove = this->head;
+        if ( this->head->next != nullptr )
+            this->head->next->prev = nullptr;
+        this->head = this->head->next;
+        delete to_remove;
+        this->size_--;
+        return true;
+    }
 
     int front() { // O(1)
         if ( this->size_ > 0 )
@@ -142,8 +173,8 @@ public:
 
     int find(int value) {
         int_node* current = this->head;
-        int i = 0;
-        while ( current != nullptr ){
+
+        for ( unsigned int i = 0; i < this->size_; i++ ){
             if ( current->value == value )
                 return i;
             current = current->next;
