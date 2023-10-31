@@ -83,9 +83,9 @@ class array_list {
 
         void push_back(int value) { // O(1)
             if (this->size_ == this->capacity_)
-                increase_capacity();
-            this->data[size_++] = value;
-            this->size_++;
+                this->increase_capacity();
+            this->data[this->size_++] = value;
+            //this->size_++;
         }
 
         void push_front(int value) { // O(n), onde n é a quantidade elementos do array antes da inserção

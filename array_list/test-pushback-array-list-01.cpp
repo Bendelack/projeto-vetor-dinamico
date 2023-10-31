@@ -3,11 +3,11 @@
 #include "array_list.hpp"
 
 int main() {
-    unsigned n;
+    int n;
     std::cin >> n;
     array_list l1;
     auto beg = std::chrono::high_resolution_clock::now();
-    for (unsigned int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int x;
         std::cin >> x;
         l1.push_back(x);
@@ -23,12 +23,12 @@ int main() {
         << elapsed.count() << std::endl;
 
     std::cout << std::endl;
-    std::cout << "{ ";
+    /*std::cout << "{ ";
     for (unsigned int i = 0; i < l1.size(); ++i)
         std::cout << "[" << i << "]=" << l1.get_at(i) << " ";
-    std::cout << "}";
+    std::cout << "}";*/
 
-    l1.insert_at(3, 13);
+    /*l1.insert_at(3, 13);
     l1.insert_at(3, 13);
     l1.insert_at(3, 13);
     l1.push_front(13);
@@ -42,7 +42,7 @@ int main() {
     std::cout << "{ ";
     for (unsigned int i = 0; i < l1.size(); ++i)
         std::cout << "[" << i << "]=" << l1.get_at(i) << " ";
-    std::cout << "}";
+    std::cout << "}";*/
     
     std::cout << std::endl;
 

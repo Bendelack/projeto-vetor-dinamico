@@ -11,7 +11,7 @@ int main() {
         int x;
         std::cin >> x;
         // l1.push_front(x);
-        l1.push_back(x);
+        l1.push_front(x);
     }
 
 
@@ -27,11 +27,11 @@ int main() {
     //     std::cout << l1.get_at(i) << " ; ";
     // }
     std::cout << std::endl;
-    l1.insert_at(3, 13);
+    //l1.insert_at(3, 13);
 
-    for (unsigned int i = 0; i < l1.size(); ++i) {
+    /*for (unsigned int i = 0; i < l1.size(); ++i) {
         std::cout << l1.get_at(i) << " ; ";
-    }
+    }*/
     std::cerr << "[INFO] " << "Elapsed time for "
         << n << " pushes front :"
         << elapsed.count() << std::endl;
