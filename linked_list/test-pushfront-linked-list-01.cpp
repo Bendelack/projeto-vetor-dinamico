@@ -11,7 +11,7 @@ int main() {
         int x;
         std::cin >> x;
         // l1.push_front(x);
-        l1.push_front(x);
+        l1.push_back(x);
     }
 
 
@@ -19,7 +19,7 @@ int main() {
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = end - beg;
     if (not (l1.size() == n)) {
-        std::cerr << "[ERROR] check push_front method!\n";
+        std::cerr << "[ERROR] check push_back method!\n";
         exit(1);
     }
 
@@ -33,7 +33,7 @@ int main() {
         std::cout << l1.get_at(i) << " ; ";
     }*/
     std::cerr << "[INFO] " << "Elapsed time for "
-        << n << " pushes front :"
+        << n << " pushes back :"
         << elapsed.count() << std::endl;
     return 0;
 }

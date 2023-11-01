@@ -19,7 +19,7 @@ int main() {
         exit(1);
     }
     std::cerr << "[INFO] " << "Elapsed time for "
-        << n << " pushes front :"
+        << n << " pushes back :"
         << elapsed.count() << std::endl;
 
     std::cout << std::endl;
