@@ -144,9 +144,12 @@ public:
         if ( this->size_ == 0 )
             return false;
         int_node* to_remove = this->tail;
-        if ( this->tail->prev != nullptr )
+        if ( this->tail->prev != nullptr ){
             this->tail->prev->next = nullptr;
-        this->tail = this->tail->prev;
+            this->tail = this->tail->prev;
+        }
+	else
+	    this->tail = this->head = nullptr;
         delete to_remove;
         this->size_--;
         return true;

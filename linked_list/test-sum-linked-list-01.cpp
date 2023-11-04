@@ -1,12 +1,12 @@
 #include <iostream>
 #include <chrono>
-#include "array_list.hpp"
+#include "linked_list.hpp"
 
 
 int main() {
     unsigned int n;
     std::cin >> n;
-    array_list l1;
+    linked_list l1;
     std::cout << "Reading..." << std::endl;
     l1.clear();
     for (unsigned int i = 0; i < n; ++i) {

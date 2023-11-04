@@ -1,12 +1,13 @@
 #include <iostream>
 #include <chrono>
-#include "array_list.hpp"
+#include "linked_list.hpp"
 
 
 int main() {
     unsigned int n;
+    unsigned int ind;
     std::cin >> n;
-    array_list l1;
+    linked_list l1;
     std::cout << "Reading..." << std::endl;
     l1.clear();
     for (unsigned int i = 0; i < n; ++i) {
@@ -14,25 +15,30 @@ int main() {
         std::cin >> x;
         l1.push_back(x);
     }
+
     auto beg = std::chrono::high_resolution_clock::now();
-
-    int soma = l1.sum();
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << soma << std::endl; // show sum
-    std::cout << std::endl;
-    std::cout << std::endl;
-    
-
+    for (unsigned int i = 0; i < n; ++i) {
+	ind = l1.size()/2;
+        l1.remove_at(ind);
+    }
     auto end = std::chrono::high_resolution_clock::now();
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //for ( unsigned int i = 0; i < l1.size(); i++ )
+	//std::cout << l1.get_at(i) << " ";
+
+    std::cout << std::endl;
+
     auto elapsed = end - beg;
 
-    if (not (soma)) {
-        std::cerr << "[ERROR] check sum method!\n";
+    if (not (l1.size() == 0)) {
+        std::cerr << "[ERROR] check remove_at method!\n";
         exit(1);
     }
     std::cerr << "[INFO] " << "Elapsed time for "
-        << n << " sum success : "
+        << n << " remove_at  success : "
         << elapsed.count() << std::endl;
     return 0;
 }

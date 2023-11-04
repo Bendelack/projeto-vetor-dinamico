@@ -7,20 +7,20 @@ class array_list {
         int* data;
         unsigned int size_, capacity_;
         void increase_capacity() { // O(n), onde n é a quantidade de elementos no array
-            int* new_data = new int[this->capacity_ + 100];
+            int* new_data = new int[this->capacity_ * 2];
             for (unsigned i = 0; i < this->size_; i++){
                 new_data[i] = this->data[i];
             }
             delete [] this->data;
             this->data = new_data;
-            this->capacity_ = this->capacity_ + 100;
+            this->capacity_ = this->capacity_ * 2;
         }
 
     public:
         array_list() {
-            data = new int[100];
+            data = new int[8];
             this->size_ = 0;
-            this->capacity_ = 100;
+            this->capacity_ = 8;
         }
 
         ~array_list() {
@@ -150,7 +150,7 @@ class array_list {
 
         int sum() { // O(n), onde n é a quantidade de elementos do array
             int soma = 0;
-            for ( unsigned i = 0; i < this->size_; i++ )
+            for ( unsigned int i = 0; i < this->size_; i++ )
                 soma += this->data[i];
             return soma;
         }
